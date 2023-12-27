@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 15:48:56 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/27 14:47:44 by mmaila           ###   ########.fr       */
+/*   Created: 2023/12/27 16:02:40 by mmaila            #+#    #+#             */
+/*   Updated: 2023/12/27 16:08:31 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/pipex.h"
+#include "Includes/pipex.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	ft_exit(int n)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
+	perror("Error");
+	exit(n);
 }
