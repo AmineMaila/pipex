@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/27 16:02:40 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 18:32:59 by mmaila           ###   ########.fr       */
+/*   Created: 2023/12/28 16:50:20 by mmaila            #+#    #+#             */
+/*   Updated: 2023/12/28 16:51:12 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/pipex.h"
+#include "../../Includes/pipex.h"
 
-void	ft_exit(char *cmd, char *str, int ext)
+void	ft_putendl_fd(char *s, int fd)
 {
-	if (str)
-	{
-		ft_putstr_fd("pipex: ", 2);
-		if (cmd)
-			ft_putstr_fd(cmd, 2);
-		ft_putendl_fd(str, 2);
-		if (ext)
-			exit(ext);
-	}
-	else
-		perror("pipex");
-	if (ext)
-		exit(ext);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

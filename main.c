@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 17:35:35 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/27 16:08:27 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/28 18:36:44 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	get_outfd(t_data *pipex, int fd)
 	{
 		pipex->outfd = open(pipex->outpath, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (pipex->outfd == -1)
-			ft_exit(1);
+			ft_exit(NULL, NULL, errno);
 		close(fd);
 	}
 	else
@@ -34,12 +34,14 @@ void	birth(t_data *pipex, char **env, char *cmd)
 	pipex->pids[pipex->id_count] = fork();
 	if (pipex->pids[pipex->id_count] == 0)
 	{
+		if (pipex->infd == -1 || pipex->outfd == -1)
+			exit(0);
 		close(fd[0]);
 		if (dup2(pipex->infd, 0) == -1)
-			ft_exit(3);
+			ft_exit(NULL, NULL, errno);
 		close (pipex->infd);
 		if (dup2(pipex->outfd, 1) == -1)
-			ft_exit(3);
+			ft_exit(NULL, NULL, errno);
 		close(pipex->outfd);
 		exec_cmd(cmd, env);
 	}
@@ -60,7 +62,11 @@ void	spawn_children(t_data *pipex, char **env, char **argv, int argc)
 	close(pipex->infd);
 	pipex->index = 0;
 	while (pipex->index < pipex->id_count)
-		waitpid(pipex->pids[pipex->index++], 0, 0);
+	{
+		if (waitpid(pipex->pids[pipex->index++], 0, 0) == -1)
+			ft_exit(NULL, NULL, errno);
+	}
+	free(pipex->pids);
 }
 
 void	pipex_init(t_data *pipex, char *out, int argc)
@@ -82,13 +88,13 @@ int	main(int argc, char **argv, char **env)
 	if (!ft_strcmp(argv[1], "here_doc"))
 	{
 		if (argc < 6)
-			ft_exit(1);
+			ft_exit(NULL, NULL, errno);
 		pipex.infd = here_doc(argv[2], &pipex);
 		pipex.index = 3;
 	}
 	else
 		pipex.infd = open(argv[1], O_RDONLY);
 	if (pipex.infd == -1)
-		ft_exit(1);
+		ft_exit(argv[1], ": no such file or directory", 0);
 	spawn_children(&pipex, env, argv, argc);
 }

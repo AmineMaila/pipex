@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"locale": "c",
-		"pipex.h": "c",
-		"__locale": "c",
-		"ios": "c",
-		"chrono": "c"
-	}
-}

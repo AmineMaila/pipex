@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:17:42 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/27 14:45:34 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/28 18:25:08 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	is_lim(char **lim, int fd)
 	{
 		tmp = get_next_line(0);
 		if (!tmp)
-			ft_exit(1);
+			ft_exit(NULL, NULL, errno);
 		if (!ft_strcmp(*lim, tmp))
 		{
 			free(tmp);
@@ -44,8 +44,9 @@ int	here_doc(char *lim, t_data *pipex)
 		close(fd[0]);
 		lim = ft_strjoin(lim, "\n");
 		if (!lim)
-			ft_exit(1);
+			ft_exit(NULL, NULL, errno);
 		is_lim(&lim, fd[1]);
 	}
+	pipex->id_count++;
 	return (close(fd[1]), fd[0]);
 }

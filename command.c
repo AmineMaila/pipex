@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:21:14 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/27 16:08:08 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/28 18:27:58 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,18 @@ char	*get_path(char *cmd, char **env)
 	if (!path)
 		return (NULL);
 	i = 0;
-	tmp = ft_strjoin(path[i], cmd);
-	if (!tmp)
-		return (free_2d(&path), NULL);
-	i = 0;
-	while (path[i] && access(tmp, F_OK | X_OK))
+	while (path[i])
 	{
-		free(tmp);
 		tmp = ft_strjoin(path[i++], cmd);
+		if (!tmp)
+			return (free_2d(&path), NULL);
+		if (!access(tmp, F_OK | X_OK))
+			return (free_2d(&path), tmp);
+		free(tmp);
 	}
 	free_2d(&path);
-	return (tmp);
+	ft_exit(cmd + 1, ": command not found", errno);
+	return (NULL);
 }
 
 void	get_cmd(char ***cmd_line, char *cmd, char **env)
@@ -56,18 +57,18 @@ void	get_cmd(char ***cmd_line, char *cmd, char **env)
 		free_2d(cmd_line);
 	*cmd_line = ft_split(cmd, ' ');
 	if (!*cmd_line)
-		ft_exit(1);
+		ft_exit(NULL, NULL, errno);
 	tmp = ft_strjoin("/", (*cmd_line)[0]);
 	if (!tmp)
 	{
 		free_2d(cmd_line);
-		ft_exit(1);
+		ft_exit(NULL, NULL, errno);
 	}
 	free((*cmd_line)[0]);
 	(*cmd_line)[0] = get_path(tmp, env);
 	free(tmp);
 	if (!(*cmd_line)[0])
-		ft_exit(1);
+		ft_exit(NULL, NULL, errno);
 }
 
 void	exec_cmd(char *cmd, char **env)
@@ -79,6 +80,6 @@ void	exec_cmd(char *cmd, char **env)
 	if (execve(cmd_line[0], cmd_line, NULL) == -1)
 	{
 		free_2d(&cmd_line);
-		ft_exit(3);
+		ft_exit(NULL, NULL, errno);
 	}
 }
