@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:21:14 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 18:27:58 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/28 22:08:43 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_path(char *cmd, char **env)
 		free(tmp);
 	}
 	free_2d(&path);
-	ft_exit(cmd + 1, ": command not found", errno);
+	ft_exit(cmd + 1, ": command not found", 1);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:17:42 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 21:32:49 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/28 22:16:48 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	here_doc(char *lim, t_data *pipex)
 			ft_exit(NULL, NULL, errno);
 		is_lim(&lim, fd[1]);
 	}
-	pipex->id_count++;
-	return (close(fd[1]), fd[0]);
+	close(fd[1]);
+	wait(0);
+	return (fd[0]);
 }
