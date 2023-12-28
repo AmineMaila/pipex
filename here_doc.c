@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:17:42 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 18:25:08 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/28 21:32:49 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	is_lim(char **lim, int fd)
 
 	while (1)
 	{
+		ft_putstr_fd("pipe heredoc> ", 0);
 		tmp = get_next_line(0);
 		if (!tmp)
 			ft_exit(NULL, NULL, errno);

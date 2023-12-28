@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/28 21:24:17 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 21:31:52 by mmaila           ###   ########.fr       */
+/*   Created: 2023/12/24 17:35:35 by mmaila            #+#    #+#             */
+/*   Updated: 2023/12/28 20:44:53 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,19 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	pipex;
 
-	if (argc != 5)
-		ft_exit(NULL, "Invalid arguments", 1);
+	if (argc < 5)
+		ft_exit(NULL, "insufficient arguments", 1);
 	pipex_init(&pipex, argv[argc - 1], argc);
 	pipex.index = 2;
-	pipex.infd = open(argv[1], O_RDONLY);
+	if (!ft_strcmp(argv[1], "here_doc"))
+	{
+		if (argc < 6)
+			ft_exit(NULL, "insufficient arguments", 1);
+		pipex.infd = here_doc(argv[2], &pipex);
+		pipex.index = 3;
+	}
+	else
+		pipex.infd = open(argv[1], O_RDONLY);
 	if (pipex.infd == -1)
 		ft_exit(argv[1], ": no such file or directory", 0);
 	spawn_children(&pipex, env, argv, argc);
