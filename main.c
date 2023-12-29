@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 21:24:17 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/29 13:34:52 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/29 14:23:06 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	birth(t_data *pipex, char **env, char *cmd)
 {
 	int	fd[2];
 
-	pipe(fd);
+	if (pipe(fd) == -1)
+		ft_exit(NULL, NULL, errno);
 	get_outfd(pipex, fd[1]);
 	pipex->pids[pipex->id_count] = fork();
 	if (pipex->pids[pipex->id_count] == -1)

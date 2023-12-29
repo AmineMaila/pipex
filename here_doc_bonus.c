@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:17:42 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/29 14:11:05 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/29 14:23:37 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	here_doc(char *lim, t_data *pipex)
 {
 	int		fd[2];
 
-	pipe(fd);
+	if (pipe(fd) == -1)
+		ft_exit(NULL, NULL, errno);
 	pipex->pids[pipex->id_count] = fork();
 	if (pipex->pids[pipex->id_count] == -1)
 		ft_exit(NULL, NULL, errno);
