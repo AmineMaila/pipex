@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:03:44 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 18:23:25 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/29 12:51:19 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_data
 	int		id_count;
 	int		outstatus;
 	int		index;
-	int		failed;
+	int		heredoc;
 }				t_data;
 
 # define BUFFER_SIZE 10

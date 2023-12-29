@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 17:35:35 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 22:50:00 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/29 12:52:02 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	get_outfd(t_data *pipex, int fd)
 {
 	if (pipex->outstatus == 1)
 	{
-		pipex->outfd = open(pipex->outpath, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		if (pipex->heredoc)
+			pipex->outfd = open(pipex->outpath, O_WRONLY | O_CREAT | O_APPEND, 0777);
+		else
+			pipex->outfd = open(pipex->outpath, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (pipex->outfd == -1)
 			ft_exit(NULL, NULL, errno);
 		close(fd);
@@ -76,6 +79,7 @@ void	pipex_init(t_data *pipex, char *out, int argc)
 	pipex->id_count = 0;
 	pipex->outstatus = 0;
 	pipex->outpath = out;
+	pipex->heredoc = 0;
 	pipex->pids = malloc((argc - 3) * sizeof(int));
 }
 
@@ -91,6 +95,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (argc < 6)
 			ft_exit(NULL, "insufficient arguments", 1);
+		pipex.heredoc = 1;
 		pipex.infd = here_doc(argv[2], &pipex);
 		pipex.index = 3;
 	}
