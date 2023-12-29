@@ -6,7 +6,7 @@
 #    By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/24 17:21:21 by mmaila            #+#    #+#              #
-#    Updated: 2023/12/28 21:30:31 by mmaila           ###   ########.fr        #
+#    Updated: 2023/12/29 14:10:58 by mmaila           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ UTILS= exit.o command.o srcs/utils/ft_put_fd.o srcs/utils/ft_split.o \
 		srcs/utils/ft_strcmp.o srcs/utils/ft_strjoin.o srcs/utils/ft_strlcpy.o srcs/utils/ft_strncmp.o \
 		srcs/utils/ft_putendl_fd.o srcs/get_next_line/get_next_line.o srcs/get_next_line/get_next_line_utils.o
 
-OBJS_BONUS= here_doc.o main_bonus.o
+OBJS_BONUS= here_doc_bonus.o main_bonus.o
 
 NAME= pipex
 NAME_BONUS= pipex_bonus
