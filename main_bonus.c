@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 17:35:35 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/29 14:23:26 by mmaila           ###   ########.fr       */
+/*   Updated: 2024/01/23 13:45:19 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	get_outfd(t_data *pipex, int fd)
 	{
 		if (pipex->heredoc)
 			pipex->outfd = open(pipex->outpath, O_WRONLY
-					| O_CREAT | O_APPEND, 0777);
+					| O_CREAT | O_APPEND, 0644);
 		else
 			pipex->outfd = open(pipex->outpath, O_WRONLY
-					| O_CREAT | O_TRUNC, 0777);
+					| O_CREAT | O_TRUNC, 0644);
 		if (pipex->outfd == -1)
 			ft_exit(NULL, NULL, errno);
 		close(fd);

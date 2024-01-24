@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 21:24:17 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/29 14:23:06 by mmaila           ###   ########.fr       */
+/*   Updated: 2024/01/23 13:45:26 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_outfd(t_data *pipex, int fd)
 {
 	if (pipex->outstatus == 1)
 	{
-		pipex->outfd = open(pipex->outpath, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		pipex->outfd = open(pipex->outpath, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (pipex->outfd == -1)
 			ft_exit(NULL, NULL, errno);
 		close(fd);

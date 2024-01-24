@@ -6,7 +6,7 @@
 /*   By: mmaila <mmaila@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 17:21:14 by mmaila            #+#    #+#             */
-/*   Updated: 2023/12/28 22:08:43 by mmaila           ###   ########.fr       */
+/*   Updated: 2023/12/29 17:17:29 by mmaila           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,20 @@ void	get_cmd(char ***cmd_line, char *cmd, char **env)
 	*cmd_line = ft_split(cmd, ' ');
 	if (!*cmd_line)
 		ft_exit(NULL, NULL, errno);
-	tmp = ft_strjoin("/", (*cmd_line)[0]);
-	if (!tmp)
+	if (access(*cmd_line[0], F_OK | X_OK))
 	{
-		free_2d(cmd_line);
-		ft_exit(NULL, NULL, errno);
+		tmp = ft_strjoin("/", (*cmd_line)[0]);
+		if (!tmp)
+		{
+			free_2d(cmd_line);
+			ft_exit(NULL, NULL, errno);
+		}
+		free((*cmd_line)[0]);
+		(*cmd_line)[0] = get_path(tmp, env);
+		free(tmp);
+		if (!(*cmd_line)[0])
+			ft_exit(NULL, NULL, errno);
 	}
-	free((*cmd_line)[0]);
-	(*cmd_line)[0] = get_path(tmp, env);
-	free(tmp);
-	if (!(*cmd_line)[0])
-		ft_exit(NULL, NULL, errno);
 }
 
 void	exec_cmd(char *cmd, char **env)
